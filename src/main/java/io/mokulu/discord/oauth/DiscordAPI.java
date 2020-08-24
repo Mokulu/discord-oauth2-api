@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class DiscordAPI
 {
-    public static final String BASE_URI = "https://discordapp.com/api";
+    public static final String BASE_URI = "https://discord.com/api";
     private static final Gson gson = new GsonBuilder().serializeNulls().enableComplexMapKeySerialization().create();
     private final String accessToken;
 

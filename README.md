@@ -23,7 +23,7 @@ A small Discord OAuth2 API wrapper for Java.
 	<dependency>
 	    <groupId>com.github.Mokulu</groupId>
 	    <artifactId>discord-oauth2-api</artifactId>
-	    <version>1.0.0</version>
+	    <version>1.0.1</version>
 	</dependency>
 ```
 
@@ -38,7 +38,7 @@ A small Discord OAuth2 API wrapper for Java.
 ```
 ```
 	dependencies {
-	        implementation 'com.github.Mokulu:discord-oauth2-api:1.0.0'
+	        implementation 'com.github.Mokulu:discord-oauth2-api:1.0.1'
 	}
 ```
 
