@@ -1,5 +1,6 @@
 package io.mokulu.discord.oauth.model;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -34,17 +35,30 @@ public enum Permission
     MANAGE_NICKNAMES(0x08000000),
     MANAGE_ROLES(0x10000000),
     MANAGE_WEBHOOKS(0x20000000),
+    @Deprecated
     MANAGE_EMOJIS(0x40000000),
+    MANAGE_EMOJIS_AND_STICKERS(0x0040000000),
+    USE_APPLICATION_COMMANDS(0x0080000000),
+    REQUEST_TO_SPEAK(0x0100000000L),
+    MANAGE_EVENTS(0x0200000000L),
+    MANAGE_THREADS(0x0400000000L),
+    CREATE_PUBLIC_THREADS(0x0800000000L),
+    CREATE_PRIVATE_THREADS(0x1000000000L),
+    USE_EXTERNAL_STICKERS(0x2000000000L),
+    SEND_MESSAGES_IN_THREADS(0x4000000000L),
+    START_EMBEDDED_ACTIVITIES(0x8000000000L),
     ;
 
-    private final int value;
+    @Getter
+    private final long value;
 
-    boolean isIn(int permissions)
+    boolean isIn(long permissions)
     {
         return (permissions & value) == value;
     }
 
-    int value()
+    @Deprecated
+    long value()
     {
         return value;
     }
