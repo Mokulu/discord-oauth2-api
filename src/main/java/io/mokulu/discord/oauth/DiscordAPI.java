@@ -29,6 +29,11 @@ public class DiscordAPI
         return gson.fromJson(str, clazz);
     }
 
+    /**
+     * Gets the version of the library.
+     * @return Version
+     * @throws IOException Properties exception
+     */
     private String getVersion() throws IOException
     {
         InputStream resourceAsStream = this.getClass().getResourceAsStream("/version.properties");
@@ -37,6 +42,11 @@ public class DiscordAPI
         return prop.getProperty("version");
     }
 
+    /**
+     * Sets the headers for the request.
+     * @param request Request
+     * @throws IOException Properties exception from getVersion()
+     */
     private void setHeaders(org.jsoup.Connection request) throws IOException
     {
         request.header("Authorization", "Bearer " + accessToken);
@@ -45,6 +55,12 @@ public class DiscordAPI
                 System.getProperty("os.version")));
     }
 
+    /**
+     * Handles the GET request.
+     * @param path Path
+     * @return Response
+     * @throws IOException Jsoup or Version exception
+     */
     private String handleGet(String path) throws IOException
     {
         org.jsoup.Connection request = Jsoup.connect(BASE_URI + path).ignoreContentType(true);
@@ -53,16 +69,31 @@ public class DiscordAPI
         return request.get().body().text();
     }
 
+    /**
+     * Fetches the user's Discord profile.
+     * @return User
+     * @throws IOException Json exception
+     */
     public User fetchUser() throws IOException
     {
         return toObject(handleGet("/users/@me"), User.class);
     }
 
+    /**
+     * Fetches the user's Discord guilds.
+     * @return List of guilds
+     * @throws IOException Json exception
+     */
     public List<Guild> fetchGuilds() throws IOException
     {
         return Arrays.asList(toObject(handleGet("/users/@me/guilds"), Guild[].class));
     }
 
+    /**
+     * Fetches the user's Discord connections.
+     * @return List of connections
+     * @throws IOException Json exception
+     */
     public List<Connection> fetchConnections() throws IOException
     {
         return Arrays.asList(toObject(handleGet("/users/@me/connections"), Connection[].class));

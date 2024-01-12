@@ -3,8 +3,6 @@ package io.mokulu.discord.oauth.model;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -17,10 +15,13 @@ public class Guild
     private String name;
     private String icon;
     private boolean owner;
-    @SerializedName("permissions_new")
     private Long permissions;
     private List<String> features;
 
+    /**
+     * Gets the user's permissions in the guild.
+     * @return List of permissions
+     */
     public List<Permission> getPermissionList()
     {
         List<Permission> permissionList = new LinkedList<>();

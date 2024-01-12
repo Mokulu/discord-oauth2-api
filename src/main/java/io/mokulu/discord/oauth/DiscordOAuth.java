@@ -28,11 +28,30 @@ public class DiscordOAuth
     private final String redirectUri;
     private final String[] scope;
 
+    /**
+     * Converts a JSON string to a TokensResponse object.
+     * @param str The JSON string.
+     * @return The TokensResponse object.
+     */
     private static TokensResponse toObject(String str)
     {
         return gson.fromJson(str, TokensResponse.class);
     }
 
+    /**
+     * Generates a Discord OAuth2 authorization URL.
+     * @return The URL.
+     */
+    public String getAuthorizationURL()
+    {
+        return getAuthorizationURL(null);
+    }
+
+    /**
+     * Generates a Discord OAuth2 authorization URL.
+     * @param state Optional state to pass to the callback.
+     * @return The URL.
+     */
     public String getAuthorizationURL(String state)
     {
         URIBuilder builder;
@@ -48,15 +67,21 @@ public class DiscordOAuth
         builder.addParameter("response_type", "code");
         builder.addParameter("client_id", clientID);
         builder.addParameter("redirect_uri", redirectUri);
-        if (state != null && state.length() > 0)
+        if (state != null && !state.isEmpty())
         {
             builder.addParameter("state", state);
         }
 
         // URI builder turns spaces into +, but Discord API doesn't support that in scope
-        return builder.toString() + "&scope=" + String.join("%20", scope);
+        return builder + "&scope=" + String.join("%20", scope);
     }
 
+    /**
+     * Gets the access token and refresh token from the code.
+     * @param code Authorization code.
+     * @return The tokens.
+     * @throws IOException Jsoup exception.
+     */
     public TokensResponse getTokens(String code) throws IOException
     {
         Connection request = Jsoup.connect(BASE_URI + "/oauth2/token")
@@ -73,13 +98,19 @@ public class DiscordOAuth
         return toObject(response);
     }
 
-    public TokensResponse refreshTokens(String refresh_token) throws IOException
+    /**
+     * Refreshes the access token using the refresh token.
+     * @param refreshToken The refresh token to use.
+     * @return The new tokens.
+     * @throws IOException Jsoup exception.
+     */
+    public TokensResponse refreshTokens(String refreshToken) throws IOException
     {
         Connection request = Jsoup.connect(BASE_URI + "/oauth2/token")
             .data("client_id", clientID)
             .data("client_secret", clientSecret)
             .data("grant_type", GRANT_TYPE_REFRESH_TOKEN)
-            .data("refresh_token", refresh_token)
+            .data("refresh_token", refreshToken)
             .ignoreContentType(true);
 
         String response = request.post().body().text();
