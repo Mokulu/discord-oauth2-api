@@ -5,7 +5,7 @@ import static io.mokulu.discord.oauth.DiscordAPI.BASE_URI;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.apache.http.client.utils.URIBuilder;
+import org.apache.hc.core5.net.URIBuilder;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
