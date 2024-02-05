@@ -81,4 +81,19 @@ public class User
         }
         return flagList;
     }
+
+
+    /**
+     * Gets the user premium type.
+     * @return Premium Type
+     */
+    public PremiumType getPremiumType()
+    {
+        for (PremiumType value : PremiumType.values()) {
+            if (value.isType(premiumType)) {
+                return value;
+            }
+        }
+        return PremiumType.NONE;
+    }
 }
