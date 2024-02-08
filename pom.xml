@@ -6,7 +6,7 @@
 
     <groupId>io.mokulu</groupId>
     <artifactId>discord-oauth2-api</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Interact with the Discord OAuth2 API</description>
